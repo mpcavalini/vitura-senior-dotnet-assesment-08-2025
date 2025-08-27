@@ -1,4 +1,4 @@
-# Vitura Senior .NET Assessment - Q1 2025
+# Vitura | Senior .NET Assessment - Q1 2025
 
 ## Overview
 Build a single API endpoint that lists pharmacy orders with filtering, sorting, pagination and one business rule. The solution should reflect standard ASP.NET Core practices with controllers, models and DTOs. Use async throughout. Keep setup minimal and focus on senior-level judgement.
