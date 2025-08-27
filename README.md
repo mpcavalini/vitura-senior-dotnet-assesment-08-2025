@@ -1,19 +1,23 @@
-# Senior .NET Take-Home Task
+# Vitura Senior .NET Assessment - Q1 2025
 
 ## Overview
-Build a single API endpoint that lists pharmacy orders with filtering, sorting, pagination, and one business rule. Keep setup minimal and focus on senior-level judgement.
+Build a single API endpoint that lists pharmacy orders with filtering, sorting, pagination, and one business rule. The solution should reflect standard ASP.NET Core practices with controllers, models, and DTOs. Keep setup minimal and focus on senior-level judgement.
 
-⏱️ Timebox: Aim for under three hours. Stop at three hours and note what remains.
+Timebox: Aim for under three hours. Stop at three hours and note what remains.
 
 ## What You Will Build
 - .NET 8 Web API with one endpoint: `GET /orders`
-- In-memory data source loaded from `sample-orders.json`
+- Orders loaded from `sample-orders.json` into memory at startup (no database)
 
 ## Dataset
-Use the provided `sample-orders.json` with 1,000 realistic orders across 50 pharmacies. Load it in memory at startup. Do not add a database.
+Use the provided [`sample-orders.json`](https://github.com/mjkearns/vitura-senior-dotnet-assesment-08-2025/blob/main/sample-orders.json) with 1,000 realistic orders across 50 pharmacies. Load it in memory at startup. Do not add a database.
 
 ## Functional Requirements
 - **Endpoint:** `GET /orders`
+- **Structure:**
+  - Use a controller (`OrdersController`)
+  - Create a model (`Order`) that maps the dataset
+  - Create a DTO (`OrderResponseDto`) for the API response
 - **Query parameters:**
   - `pharmacyId` string, optional
   - `status` repeatable, optional (eg: `status=Pending&status=Shipped`)
@@ -49,21 +53,19 @@ Provide two focused unit tests:
 2. Pagination returns stable results across repeated calls
 
 ## Deliverables
-- Minimal .NET 8 solution that serves `GET /orders`
+- .NET 8 Web API project with controllers, models, and DTOs
 - `sample-orders.json` loaded at startup
 - Unit tests as above
 - **README** that covers:
   - How to run locally (3 steps or fewer)
   - Indexing/query approach you would use in production
-  - Monitoring/alerting you would set up
-  - Release flow notes (dev to staging to prod, config per env, no cherry-picks)
   - Trade-offs made due to time limit and what you would do next
 
 ## What To Ignore
 - Authentication/authorisation
-- Full repository or DAL patterns beyond basics
-- Complex DI or layering
+- Full repository or DAL patterns
 - Database setup
+- Complex DI configuration beyond basics
 
 ## Evaluation Rubric (0-4 each, total 20)
 - **Correctness** - spec met and edge cases handled
@@ -73,28 +75,6 @@ Provide two focused unit tests:
 - **Developer experience** - README clarity, simple startup, useful logs
 
 ## Getting Started
-- Use Minimal APIs or a simple controller
+- Use controllers, models, and DTOs to reflect standard ASP.NET Core practices
 - Use `System.Text.Json`
 - Generate a correlation ID per request (or accept `x-correlation-id`) and log it
-
-### `sample-orders.json`
-
-Include the 1,000-order dataset here (already generated).
-
-### `.gitignore`
-
-```gitignore
-# .NET
-bin/
-obj/
-*.user
-*.suo
-*.swp
-
-# IDEs
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-Thumbs.db
