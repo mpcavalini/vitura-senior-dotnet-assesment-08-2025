@@ -1,7 +1,7 @@
 # Vitura Senior .NET Assessment - Q1 2025
 
 ## Overview
-Build a single API endpoint that lists pharmacy orders with filtering, sorting, pagination, and one business rule. The solution should reflect standard ASP.NET Core practices with controllers, models, and DTOs. Use async throughout. Keep setup minimal and focus on senior-level judgement.
+Build a single API endpoint that lists pharmacy orders with filtering, sorting, pagination and one business rule. The solution should reflect standard ASP.NET Core practices with controllers, models and DTOs. Use async throughout. Keep setup minimal and focus on senior-level judgement.
 
 Timebox: Aim for under three hours. Stop at three hours and note what remains.
 
@@ -42,7 +42,7 @@ Use the provided [`sample-orders.json`](https://github.com/mjkearns/vitura-senio
   - Default sort is `createdAt desc`
   - Pagination should be stable under repeated calls with the same parameters
 - **Observability**
-  - Log one structured line per request with correlation ID, validated params, elapsed ms, and item count
+  - Log one structured line per request with correlation ID, validated params, elapsed ms and item count
   - Include error logs for validation failures
 - **Performance thinking**
   - Stay in memory for this exercise
