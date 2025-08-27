@@ -1,7 +1,7 @@
 # Vitura Senior .NET Assessment - Q1 2025
 
 ## Overview
-Build a single API endpoint that lists pharmacy orders with filtering, sorting, pagination, and one business rule. The solution should reflect standard ASP.NET Core practices with controllers, models, and DTOs. Keep setup minimal and focus on senior-level judgement.
+Build a single API endpoint that lists pharmacy orders with filtering, sorting, pagination, and one business rule. The solution should reflect standard ASP.NET Core practices with controllers, models, and DTOs. Use async throughout. Keep setup minimal and focus on senior-level judgement.
 
 Timebox: Aim for under three hours. Stop at three hours and note what remains.
 
@@ -18,6 +18,7 @@ Use the provided [`sample-orders.json`](https://github.com/mjkearns/vitura-senio
   - Use a controller (`OrdersController`)
   - Create a model (`Order`) that maps the dataset
   - Create a DTO (`OrderResponseDto`) for the API response
+  - Implement the endpoint as async and support cancellation
 - **Query parameters:**
   - `pharmacyId` string, optional
   - `status` repeatable, optional (eg: `status=Pending&status=Shipped`)
@@ -54,10 +55,11 @@ Provide two focused unit tests:
 
 ## Deliverables
 - .NET 8 Web API project with controllers, models, and DTOs
+- Async implementation with cancellation support
 - `sample-orders.json` loaded at startup
 - Unit tests as above
 - **README** that covers:
-  - How to run locally (3 steps or fewer)
+  - How to run locally
   - Indexing/query approach you would use in production
   - Trade-offs made due to time limit and what you would do next
 
@@ -76,5 +78,6 @@ Provide two focused unit tests:
 
 ## Getting Started
 - Use controllers, models, and DTOs to reflect standard ASP.NET Core practices
+- Use async and support cancellation
 - Use `System.Text.Json`
 - Generate a correlation ID per request (or accept `x-correlation-id`) and log it
