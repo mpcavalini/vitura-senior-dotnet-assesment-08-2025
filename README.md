@@ -54,6 +54,7 @@ Provide two focused unit tests:
 2. Pagination returns stable results across repeated calls
 
 ## Deliverables
+A **GitHub repo** that contains:
 - .NET 8 Web API project with controllers, models, and DTOs
 - Async implementation with cancellation support
 - `sample-orders.json` loaded at startup
