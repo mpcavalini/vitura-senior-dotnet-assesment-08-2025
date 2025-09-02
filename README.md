@@ -5,6 +5,7 @@
 The Vitura API is a .NET 8 Web API application designed to manage pharmacy orders. It provides RESTful endpoints for querying and filtering orders with comprehensive validation, pagination, and logging capabilities. The application follows clean architecture principles with dependency injection, async/await patterns, and comprehensive testing coverage.
 
 **Key Features:**
+
 - Order querying with multiple filter options (pharmacy ID, status, date range)
 - Configurable review thresholds for high-value orders
 - Pagination and sorting capabilities
@@ -16,6 +17,7 @@ The Vitura API is a .NET 8 Web API application designed to manage pharmacy order
 ## Onboarding Guide
 
 ### Prerequisites
+
 - .NET 8 SDK
 - Visual Studio 2022 or VS Code
 - Basic understanding of ASP.NET Core and C#
@@ -23,21 +25,25 @@ The Vitura API is a .NET 8 Web API application designed to manage pharmacy order
 ### Setup Instructions
 
 1. **Clone and Build**
+
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/mpcavalini/vitura-senior-dotnet-assesment-08-2025
    cd Vitura
    dotnet restore
    dotnet build
    ```
 
 2. **Configuration**
+
    - Default settings are in `appsettings.json`
    - Configure review threshold: `Review:DailyOrderThresholdCents` (default: 500 cents)
 
 3. **Run Application**
+
    ```bash
    dotnet run --project Vitura.API
    ```
+
    - API available at: `https://localhost:50621`
    - Swagger UI: `https://localhost:50621/swagger`
 
@@ -56,6 +62,7 @@ The Vitura API is a .NET 8 Web API application designed to manage pharmacy order
 ### Strengths
 
 **Architecture & Design:**
+
 - ✅ Clean separation of concerns with proper layering
 - ✅ Dependency injection properly implemented
 - ✅ Interface-based abstractions for testability
@@ -63,11 +70,13 @@ The Vitura API is a .NET 8 Web API application designed to manage pharmacy order
 - ✅ Comprehensive validation using FluentValidation
 
 **Performance & Async Patterns:**
+
 - ✅ Proper async/await usage throughout
 - ✅ CancellationToken support for request cancellation
 - ✅ Efficient LINQ operations with proper ordering
 
 **Testing:**
+
 - ✅ Good test coverage with unit and integration tests
 - ✅ Proper mocking with Moq
 - ✅ Test data builders for maintainable test fixtures
@@ -75,15 +84,18 @@ The Vitura API is a .NET 8 Web API application designed to manage pharmacy order
 ### Areas for Improvement
 
 **Performance Concerns:**
+
 - ⚠️ In-memory repository loads all data for every query - consider implementing proper filtering at repository level
 - ⚠️ Multiple enumeration of IEnumerable in OrderService (`.Count()` calls)
 
 **Code Quality Issues:**
+
 - ⚠️ Static data loading in OrderDataLoader may cause threading issues
 - ⚠️ Magic numbers in validation (e.g., 50 character limit, 100 page size limit)
 - ⚠️ Missing null checks in some mapper methods
 
 **Recommended Refactoring:**
+
 ```csharp
 // Current - multiple enumerations
 var afterPharmacyFilter = orders.Where(...);
@@ -99,12 +111,14 @@ var filteredOrders = orders
 ```
 
 **Missing Error Handling:**
+
 - Repository should handle data loading failures gracefully
 - OrderService could benefit from more specific exception types
 
 ## Architecture Overview
 
 ### Project Structure
+
 ```
 Vitura.API/
 ├── Controllers/        # API endpoints
@@ -124,21 +138,26 @@ Vitura.API.Test/
 ### Key Components
 
 **Controllers Layer:**
+
 - `OrdersController` - REST API endpoints with comprehensive error handling
 
 **Services Layer:**
+
 - `IOrderService/OrderService` - Core business logic
 - `IOrderRepository/InMemoryOrderRepository` - Data access abstraction
 - `OrderDataLoader` - Background service for data initialization
 
 **Mapping Layer:**
+
 - `IOrderMapper/OrderMapper` - Object mapping between domain models and DTOs
 
 **Validation Layer:**
+
 - `OrderQueryParamsValidator` - FluentValidation rules for query parameters
 - `OrderModelValidator` - Domain model validation
 
 ### Design Patterns
+
 - **Repository Pattern** - Data access abstraction
 - **Dependency Injection** - Loose coupling and testability
 - **Command Query Separation** - Clear separation of read operations
@@ -147,35 +166,38 @@ Vitura.API.Test/
 ## API Examples
 
 ### Basic Order Query
+
 ```http
 GET /api/orders
 Accept: application/json
 ```
 
 **Response:**
+
 ```json
 {
-  "items": [
-    {
-      "id": "11111111-1111-1111-1111-111111111111",
-      "pharmacyId": "ph001",
-      "status": "Shipped",
-      "createdAt": "2024-01-15T10:00:00Z",
-      "totalCents": 75000,
-      "itemCount": 3,
-      "paymentMethod": "HICAPS",
-      "deliveryType": "ClickAndCollect",
-      "notes": "Test order 1",
-      "needsReview": true
-    }
-  ],
-  "page": 1,
-  "pageSize": 20,
-  "total": 1
+	"items": [
+		{
+			"id": "11111111-1111-1111-1111-111111111111",
+			"pharmacyId": "ph001",
+			"status": "Shipped",
+			"createdAt": "2024-01-15T10:00:00Z",
+			"totalCents": 75000,
+			"itemCount": 3,
+			"paymentMethod": "HICAPS",
+			"deliveryType": "ClickAndCollect",
+			"notes": "Test order 1",
+			"needsReview": true
+		}
+	],
+	"page": 1,
+	"pageSize": 20,
+	"total": 1
 }
 ```
 
 ### Filtered Query with Pagination
+
 ```http
 GET /api/orders?pharmacyId=ph001&status=Shipped&status=Pending&page=1&pageSize=10
 Accept: application/json
@@ -183,20 +205,22 @@ x-correlation-id: 12345678-1234-1234-1234-123456789012
 ```
 
 ### Query Parameters
-| Parameter | Type | Description | Example |
-|-----------|------|-------------|---------|
-| pharmacyId | string | Filter by pharmacy | `ph001` |
-| status | string[] | Filter by status(es) | `Shipped,Pending` |
-| from | datetime | Start date filter | `2024-01-01T00:00:00Z` |
-| to | datetime | End date filter | `2024-12-31T23:59:59Z` |
-| sort | string | Sort field | `createdAt,totalCents` |
-| direction | string | Sort direction | `asc,desc` |
-| page | int | Page number (1-based) | `1` |
-| pageSize | int | Items per page (1-100) | `20` |
+
+| Parameter  | Type     | Description            | Example                |
+| ---------- | -------- | ---------------------- | ---------------------- |
+| pharmacyId | string   | Filter by pharmacy     | `ph001`                |
+| status     | string[] | Filter by status(es)   | `Shipped,Pending`      |
+| from       | datetime | Start date filter      | `2024-01-01T00:00:00Z` |
+| to         | datetime | End date filter        | `2024-12-31T23:59:59Z` |
+| sort       | string   | Sort field             | `createdAt,totalCents` |
+| direction  | string   | Sort direction         | `asc,desc`             |
+| page       | int      | Page number (1-based)  | `1`                    |
+| pageSize   | int      | Items per page (1-100) | `20`                   |
 
 ## SWOT Analysis
 
 ### Strengths
+
 - **Well-structured architecture** with clear separation of concerns
 - **Comprehensive testing strategy** covering unit and integration scenarios
 - **Modern .NET practices** including async/await, dependency injection, and record types
@@ -205,6 +229,7 @@ x-correlation-id: 12345678-1234-1234-1234-123456789012
 - **Clean API design** following REST conventions
 
 ### Weaknesses
+
 - **Performance limitations** due to in-memory data storage and processing
 - **Static data initialization** may cause concurrency issues in high-load scenarios
 - **Limited data persistence** - no actual database integration
@@ -212,6 +237,7 @@ x-correlation-id: 12345678-1234-1234-1234-123456789012
 - **Missing authentication/authorization** for production readiness
 
 ### Opportunities
+
 - **Database integration** - Replace in-memory storage with actual database (Entity Framework Core)
 - **Caching layer** - Implement Redis or in-memory caching for frequently accessed data
 - **API versioning** - Add versioning strategy for future API evolution
@@ -220,6 +246,7 @@ x-correlation-id: 12345678-1234-1234-1234-123456789012
 - **Docker containerization** - Enable easier deployment and scaling
 
 ### Threats
+
 - **Scalability limitations** - Current architecture won't scale beyond moderate loads
 - **Data loss risk** - In-memory storage means data loss on application restart
 - **Security vulnerabilities** - No authentication means unrestricted access
@@ -229,6 +256,7 @@ x-correlation-id: 12345678-1234-1234-1234-123456789012
 ### Missing Data & Recommendations
 
 **Missing Documentation:**
+
 - Database schema or data model specifications
 - Authentication/authorization requirements
 - Performance requirements and SLAs
@@ -236,6 +264,7 @@ x-correlation-id: 12345678-1234-1234-1234-123456789012
 - Business rules for order processing workflow
 
 **Questions for Clarification:**
+
 1. What are the expected concurrent user loads?
 2. Are there specific database requirements or preferences?
 3. What authentication mechanism should be implemented?
@@ -244,6 +273,7 @@ x-correlation-id: 12345678-1234-1234-1234-123456789012
 6. Are there integration requirements with external systems?
 
 **Immediate Action Items:**
+
 1. Implement proper database storage
 2. Add authentication middleware
 3. Optimize query performance with proper indexing
