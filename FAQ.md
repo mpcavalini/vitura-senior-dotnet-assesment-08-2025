@@ -21,7 +21,7 @@ The Vitura API offers several key features:
 To get cracking with the Vitura API, you'll need the .NET 8 SDK, Visual Studio 2022 or VS Code, and a basic understanding of ASP.NET Core and C#.
 The setup steps are:
 
-- Clone the repository: git clone <repository_url> and navigate into the Vitura directory.
+- Clone the repository: git clone https://github.com/mpcavalini/vitura-senior-dotnet-assesment-08-2025 and navigate into the Vitura directory.
 - Build the project: Run dotnet restore followed by dotnet build.
 - Configure: Default settings are in appsettings.json, including the Review:DailyOrderThresholdCents (default: 500 cents).
 - Run the application: Use dotnet run --project Vitura.API. The API will be available at https://localhost:50621
